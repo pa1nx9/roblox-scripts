@@ -1,0 +1,6 @@
+-- Become a clown
+game:GetService("Players").LocalPlayer.Character.Client.Taunt_Clown.Event_Clown:FireServer()
+-- Get Superpunch
+for i = 1,10 do
+game:GetService("Players").LocalPlayer.PlayerGui.Main_Menu.Main.Events.SuperPunch_Event:FireServer(game:GetService("Players").LocalPlayer)
+end
