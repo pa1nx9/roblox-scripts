@@ -1,0 +1,77 @@
+-- Gives Radio | Press 'e' to open the gui to play songs.
+local LocalPlayer = game.Players.LocalPlayer;
+local RadioGiver0 = game.ReplicatedStorage:WaitForChild("RadioGiver");
+
+
+for i,b in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if b.Name == "Radio" then
+        b:Destroy()
+end
+end
+RadioGiver0:FireServer(LocalPlayer);
+
+
+
+
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+bind = "e" -- has to be lowercase
+mouse.KeyDown:connect(function(key)
+if key == bind then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+    if v.Name == "ChooseSongGui" then
+        v:Destroy()
+    end
+end
+local ChooseSongGui = {
+ChooseSongGui = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui),
+Frame = Instance.new("Frame"),
+TextLabel = Instance.new("TextLabel"),
+TextBox = Instance.new("TextBox"),
+TextButton = Instance.new("TextButton"),
+}
+
+ChooseSongGui.ChooseSongGui.Name = "ChooseSongGui"
+ChooseSongGui.ChooseSongGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+ChooseSongGui.Frame.Parent = ChooseSongGui.ChooseSongGui
+ChooseSongGui.Frame.Draggable = true
+ChooseSongGui.Frame.Position = UDim2.new(0.375, 0, 0.375, 0)
+ChooseSongGui.Frame.Size = UDim2.new(0.25, 0, 0.25, 0)
+ChooseSongGui.Frame.Style = Enum.FrameStyle.RobloxRound
+
+ChooseSongGui.TextLabel.Parent = ChooseSongGui.Frame
+ChooseSongGui.TextLabel.BackgroundTransparency = 1.000
+ChooseSongGui.TextLabel.Size = UDim2.new(1, 0, 0.600000024, 0)
+ChooseSongGui.TextLabel.Text = "Lay down the beat!\nPut in the ID number for a song you love that's been uploaded to ROBLOX.\nLeave it blank to stop playing music."
+ChooseSongGui.TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+ChooseSongGui.TextLabel.TextScaled = true
+ChooseSongGui.TextLabel.TextStrokeTransparency = 0.000
+ChooseSongGui.TextLabel.TextWrapped = true
+
+ChooseSongGui.TextBox.Parent = ChooseSongGui.Frame
+ChooseSongGui.TextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ChooseSongGui.TextBox.BackgroundTransparency = 0.500
+ChooseSongGui.TextBox.BorderColor3 = Color3.fromRGB(255, 255, 255)
+ChooseSongGui.TextBox.Position = UDim2.new(0, 0, 0.600000024, 0)
+ChooseSongGui.TextBox.Size = UDim2.new(1, 0, 0.200000003, 0)
+ChooseSongGui.TextBox.Text = "Input Song Here"
+ChooseSongGui.TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+ChooseSongGui.TextBox.TextScaled = true
+ChooseSongGui.TextBox.TextWrapped = true
+
+ChooseSongGui.TextButton.Parent = ChooseSongGui.Frame
+ChooseSongGui.TextButton.Position = UDim2.new(0.125, 0, 0.800000012, 0)
+ChooseSongGui.TextButton.Size = UDim2.new(0.75, 0, 0.200000003, 0)
+ChooseSongGui.TextButton.Style = Enum.ButtonStyle.RobloxButton
+ChooseSongGui.TextButton.Text = "Play!"
+ChooseSongGui.TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ChooseSongGui.TextButton.TextScaled = true
+ChooseSongGui.TextButton.TextStrokeTransparency = 0.000
+ChooseSongGui.TextButton.TextWrapped = true
+ChooseSongGui.TextButton.MouseButton1Click:connect(function()
+game:GetService("ReplicatedStorage").BoomBox.Event:FireServer(game:GetService("Players").LocalPlayer, "Play", tonumber(ChooseSongGui.TextBox.Text), game:GetService("Players").LocalPlayer.PlayerGui.Main.Boombox)
+game.Players.LocalPlayer.PlayerGui.ChooseSongGui:Destroy()
+    end)
+end
+end)
