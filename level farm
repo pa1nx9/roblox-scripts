@@ -1,0 +1,25 @@
+getgenv().farm = true;
+getgenv().farmpunch = true;
+local remotepath = game:service"ReplicatedStorage".NetworkFolder.GameFunction
+spawn(function()
+    while true do task.wait()
+        if not farm then break end;
+        if farm then
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+            remotepath:InvokeServer("ProcessKey", {["AimPos"] = Vector3.new(6428,213,-6540),["Key"] = " ", ["ExtraData"] = {}})
+        end
+    end
+end)
+spawn(function()
+    while true do task.wait()
+        if not farmpunch then break end;
+        if farmpunch then
+        remotepath:InvokeServer("ProcessKey", {["Key"] = "E", ["ExtraData"] = {}})
+        end
+    end    
+end)
