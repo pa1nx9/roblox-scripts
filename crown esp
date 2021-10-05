@@ -1,0 +1,11 @@
+game.workspace.QuestItems.ChildAdded:connect(function(Thing)
+if Thing.Name == 'EarthKing' then
+local x = Instance.new('BillboardGui',Thing)
+x.AlwaysOnTop = true
+x.Size = UDim2.new(12,0,12,0)
+local b = Instance.new('Frame',x)
+b.Size = UDim2.new(1,0,1,0)
+x.Adornee = Thing
+b.BackgroundColor3 = Color3.new(1,1,1)
+end
+end)
