@@ -1,0 +1,9 @@
+_G.ON = true
+
+while _G.ON and wait(0.1) do
+for i,v in pairs(game:GetService("Workspace").Gems:GetChildren()) do
+    if v.ClassName == "Part" then
+        v.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+    end
+end
+end
