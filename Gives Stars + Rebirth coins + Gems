@@ -1,0 +1,13 @@
+while wait() do
+local Event = game:GetService("ReplicatedStorage").ReplicatedStorage.RemoteFunctions.OpenEventTreasure
+Event:InvokeServer()
+wait()
+local Event = game:GetService("ReplicatedStorage").ReplicatedStorage.Events.TreasureEvent.CollectDrop
+Event:FireServer()
+wait()
+local Event = game:GetService("ReplicatedStorage").ReplicatedStorage.Events.LevelUpTower
+Event:FireServer()
+wait()
+local Event = game:GetService("ReplicatedStorage").ReplicatedStorage.Events.Tower.Rebirth
+Event:FireServer()
+end
