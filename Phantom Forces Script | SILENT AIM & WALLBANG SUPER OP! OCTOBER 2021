@@ -1,0 +1,5 @@
+getgenv().Silent = true
+getgenv().Aimbone = "head"
+getgenv().FOV = 1000
+-- // FeIix was here <3 \\ --
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Ihaveash0rtnamefordiscord/Releases/main/PhantomForcesWallbang'))(' Watermelon ? ')
