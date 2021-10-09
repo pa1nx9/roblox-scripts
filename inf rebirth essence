@@ -1,0 +1,4 @@
+local A_1 = "BuildingMultiplier"
+local A_2 = -9995000
+local Event = game:GetService("ReplicatedStorage").ReplicatedStorage.RemoteFunctions.BuyItemInStore
+Event:InvokeServer(A_1, A_2)
