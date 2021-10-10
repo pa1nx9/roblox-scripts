@@ -1,0 +1,24 @@
+local p = game.Players.LocalPlayer
+local c = p.Character
+
+_G.farm = true
+
+while _G.farm do wait()
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= p then
+local args = {
+   [1] = "Damage",
+   [2] = {
+       [1] = 7,
+       [2] = 31,
+       [3] = 7,
+       [5] = 0,
+       [6] = v.Character,
+       [8] = "rbxassetid://137579113"
+   }
+}
+
+workspace.WeaponEvent:FireServer(unpack(args))
+end
+end
+end
