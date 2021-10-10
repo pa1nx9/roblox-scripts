@@ -1,0 +1,1 @@
+local PB2 = loadstring(game:HttpGet('https://raw.githubusercontent.com/RECMD1/Project-Baki-2/main/PB2.lua'))()
