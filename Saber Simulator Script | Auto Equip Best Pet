@@ -1,0 +1,58 @@
+local equip = game.ReplicatedStorage.Events.PetCommand
+local data = function()
+    return game.ReplicatedStorage.Events.UpdateData:InvokeServer()
+end
+
+local get = {
+    pets = function()
+        local e,f = data(),{}
+        for i,v in next,e.PetsInventory do
+            v.id = i
+            if not e.PetsEquipped[i] then f[i] = v end
+        end
+        return f
+    end,
+    data = function()
+        local e = {};for i,v in next,game.ReplicatedStorage.Pets:GetChildren() do
+            e[v.Name] = v.CoinsMulti.Value+v.CrownsMulti.Value+v.StrengthMulti.Value
+        end;return e
+    end,
+    equipped = function()
+        local e,f = data(),{}
+        for i,v in next,e.PetsInventory do
+            v.id = i
+            if e.PetsEquipped[i] then f[i] = v end
+        end
+        return f
+    end,
+    bybest = function(self)
+        local e,f,l = self.data(),nil
+        for i,v in next,self.pets() do
+            if l and e[v.PetName] > e[l.PetName] then l = v
+            elseif not l then l = v end
+        end;return l
+    end,
+    byworst = function(self)
+        local e,f,l = self.data(),nil
+        for i,v in next,self.equipped() do
+            if l and e[v.PetName] < e[l.PetName] then l = v
+            elseif not l then l = v end
+        end;return l
+    end,
+    maxpets = function()
+        local i = 0
+        for _,_ in next,data().PetsEquipped do
+            i = i + 1
+        end;return i
+    end
+}
+
+while wait(2) do -- 2 secs loop, i still did not tried to detect pet changes, probly sometime
+    local max,best,worst = get.maxpets(),get:bybest(),get:byworst()
+    if get.data()[best.PetName] > get.data()[worst.PetName] then
+        if data().MaxPetsEquipped >= max then
+            equip:FireServer(worst.id, 'EquipToggle')
+        end
+    end
+    equip:FireServer(best.id, 'EquipToggle')
+end
