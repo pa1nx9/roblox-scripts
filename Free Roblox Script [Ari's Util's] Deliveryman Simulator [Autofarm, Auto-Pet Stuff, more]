@@ -1,0 +1,1 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Arilis/Ari-Uitils/main/loader.lua', true))()
