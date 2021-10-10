@@ -1,0 +1,40 @@
+local standyouwant = "aewgewg" -- put the stand you want type it like this. The World
+
+
+
+
+local name = game.Players.LocalPlayer.Name
+local sn = game:GetService("Workspace")[name].StandName.Value
+local char = game.Players.LocalPlayer.Character
+
+
+
+while wait() do
+        for i , v in pairs(game:GetService("Workspace"):GetDescendants()) do
+        if v:IsA("ClickDetector") then
+            fireclickdetector(v,1)
+        end
+        end
+    wait(1.5)
+    game:GetService("Workspace").Pucci.Pucci:FireServer()
+    wait(1.5)
+    game:GetService("Players")[name].Backpack["Stand Arrow"].Parent = game:GetService("Workspace")[name]
+    game:GetService("ReplicatedStorage").ItemEvent.StandArrow:FireServer()
+    wait(8)
+    game.StarterGui:SetCore("SendNotification", {
+    Title = "Fours stand farm";
+    Text = game:GetService("Workspace")[name].StandName.Value;
+    Icon = "";
+    Duration = 5;
+    Callback = bindableFunction;
+    Button1 = "";  
+    Button2 = "";
+    })
+    wait(2)
+    if game:GetService("Workspace")[name].StandName.Value == standyouwant then
+        print("hit")
+        break
+        else
+            print("miss")
+    end
+end
