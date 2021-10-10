@@ -1,0 +1,13 @@
+_G.candy = true
+if game:GetService("Players").LocalPlayer.Character:FindFirstChild("AntiPortNew") then
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("AntiPortNew"):Remove()
+end
+while _G.candy do
+wait()
+local saber = game.Players.LocalPlayer.Character.HumanoidRootPart
+for i,v in pairs(game:GetService("Workspace").CandyHolder:GetChildren()) do
+saber.CFrame = v.CFrame
+wait(0.2)
+game:GetService("ReplicatedStorage").Events.UpdateData:InvokeServer()
+end
+end
