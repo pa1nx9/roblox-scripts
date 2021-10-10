@@ -1,0 +1,4 @@
+while wait() do
+local Target = game:GetService("Workspace").ServerStuff.BREATHE;
+Target:FireServer();
+end
