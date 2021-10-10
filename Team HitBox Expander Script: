@@ -1,0 +1,4 @@
+_G.HeadSize = 50 --Change The Hitbox Size
+_G.Disabled = true --Change To False Disable Hitbox
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SenseiJoshy/Extras/main/Team%20ABA%20HitBox%20Expander.lua"))()
