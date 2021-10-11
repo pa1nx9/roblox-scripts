@@ -1,0 +1,70 @@
+-- Clear Connection
+for i,v in pairs(getconnections(workspace.Coins.ChildAdded)) do
+   if checkcaller() then v:Disable() end
+end
+for i,v in pairs(getconnections(game.Players.LocalPlayer:GetMouse().KeyDown)) do
+   if checkcaller() then v:Disable() end
+end
+shared.Break = true
+
+local Data = require(game:GetService("ReplicatedStorage").Library.Modules.ClientMeta).Replica.Data
+local Player = game.Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+local Toggle = false
+
+-- Auto Coins
+
+for i,v in pairs(workspace.Coins:GetChildren()) do
+   game.ReplicatedStorage.Remotes.PickupCoin:InvokeServer(tonumber(v.Name))
+   v:Destroy()
+end
+workspace.Coins.ChildAdded:Connect(function(v)
+   game.ReplicatedStorage.Remotes.PickupCoin:InvokeServer(tonumber(v.Name))
+   v.Transparency = 1
+   wait(1)
+   v:Destroy()
+end)
+
+-- Toggle
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+   if key:lower() == "e" then Toggle = not Toggle end    
+end)
+
+wait(.1) -- Break loop on re-run for less lag
+shared.Break = false
+
+-- Main
+while task.wait() do
+   if Toggle then -- Check is press e
+       spawn(function()
+           local Hit = {}
+           
+           -- Check Object
+           local Special = {
+               ["East City"] = "EastCity"
+           }
+           
+           for i,v in pairs(workspace.Buildings[Special[Data.CurrentWorld] or Data.CurrentWorld]:GetChildren()) do
+               local v = v:FindFirstChild("Hitbox")
+               if v and v.Parent.Broken.Value ~= true and Player:DistanceFromCharacter(v.Position) < 25 then
+                   table.insert(Hit,{v.Parent,v.Position})
+               end
+           end
+           for i,v in pairs(workspace.Enemies:GetChildren()) do
+               if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health >= 1 then
+                   if Player:DistanceFromCharacter(v.HumanoidRootPart.Position) < 25 then
+                       table.insert(Hit,{v,v.HumanoidRootPart.Position})
+                   end
+               end
+           end
+           
+           -- Invoke
+           local Character = Player.Character
+           local Tool = Character:FindFirstChildOfClass("Tool")
+           game.ReplicatedStorage.Remotes.UseSword:InvokeServer(Tool,Hit)
+       end)
+   end
+   if shared.Break then
+       break
+   end
+end
