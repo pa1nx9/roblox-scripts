@@ -1,0 +1,14 @@
+for i,v in pairs (game:GetService("Workspace").Live:GetChildren()) do if
+   v:IsA("Model") then
+       v.ChildAdded:Connect(function()
+
+
+game:GetService("Players").LocalPlayer.Backpack.ServerTraits.Input:FireServer("f")
+       end)
+           v.ChildRemoved:Connect(function()
+
+game:GetService("Players").LocalPlayer.Backpack.ServerTraits.Input:FireServer("foff")
+end)
+
+   end
+end
