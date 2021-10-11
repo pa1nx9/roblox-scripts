@@ -1,0 +1,26 @@
+local f = game:GetService("ReplicatedStorage").Remotes.Attack
+local p = game:GetService("Players")
+local l = p.LocalPlayer
+local s = l.Character
+local e = s and s.PrimaryPart
+local q,a = e and e.CFrame,e and s:FindFirstChild('Battle')
+local x = a and a:FindFirstChild('Team')
+
+for i,v in next,p:GetPlayers() do
+    local c = v.Character
+    local g,b = c and c.PrimaryPart,c and c:FindFirstChild('Battle')
+    local t = b and b:FindFirstChild('Team')
+    
+    if not (a and g and b and v ~= l) then continue end
+    if a.Value and b.Value ~= a.Value then continue end
+    if not ((x and t and t.Value == x.Value) or (not (x and t))) then continue end
+    
+    while a and b and b.Value and b.Value == a.Value and c.Config.Damage.Value < 350 do
+        e.CFrame = g.CFrame
+        s.Humanoid:ChangeState(11)
+        for i = 1,3 do f:FireServer('Normal', i) end
+        task.wait()
+    end
+    f:FireServer('Normal', 5)
+end
+if e then e.CFrame = q end
