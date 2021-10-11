@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/ROBLOX/master/Games/Decaying%20Winter/Stefanuk-ified/DispenserBot.lua"))()
