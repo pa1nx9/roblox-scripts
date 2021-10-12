@@ -1,0 +1,7 @@
+for i=1,15 do
+   for i,v in next,game.Players:GetPlayers()do
+       if v~=game.Players.LocalPlayer then
+           game.ReplicatedStorage.Remotes.Replication:FireServer(v.Character.Humanoid,10)
+       end
+   end
+end
