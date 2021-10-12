@@ -1,0 +1,3 @@
+--Re-Execute To Disable.
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SenseiJoshy/Extras/main/DaHood%20ShoeFarm.lua"))()
