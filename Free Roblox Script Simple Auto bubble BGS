@@ -1,0 +1,7 @@
+while true do
+   wait(1) -- change if you want
+   local args = {
+       [1] = "BlowBubble"}
+
+   game:GetService("ReplicatedStorage").NetworkRemoteEvent:FireServer(unpack(args))
+end
