@@ -1,0 +1,14 @@
+local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+while wait(1) do
+   hrp.CFrame = CFrame.new(-363, 71, -92)
+   wait(0.9)
+   hrp.CFrame = CFrame.new(-1626, 54, -1959)
+   wait(0.9)
+   hrp.CFrame = CFrame.new(916, 52, 888)
+   wait(0.9)
+   hrp.CFrame = CFrame.new(-1681, 68, 635)
+   wait(0.9)
+   hrp.CFrame = CFrame.new(-252, 2905, -644)
+   break;
+end
