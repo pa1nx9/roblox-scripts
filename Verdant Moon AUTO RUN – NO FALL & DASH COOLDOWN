@@ -1,0 +1,105 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() -- thanks for the loadstring wally
+
+local ragdoll_module = require(game:GetService("ReplicatedStorage").Modules.Ragdoll)
+
+for i, v in pairs(getgc()) do
+    if type(v) == "function" and getinfo(v).name == "dashCooldown" then
+        dcooldown = v -- dashCooldown func, keeping this global fuck u.
+    end
+end
+
+--[[ NOFALL ]]
+local old_namecall
+old_namecall = hookmetamethod(game, "__namecall", function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if method == "FireServer" and tostring(self) == "fall" then
+        return
+    end
+    return old_namecall(self, ...)
+end)
+
+-- [[ AUTO RUN ]]
+game.Players.LocalPlayer.Character.Humanoid.Running:connect(function(speed)
+    if library.flags["auto_run"] and speed < 1 then
+        game.Players.LocalPlayer.Character.MovementValues.isRunning.Value = false
+    end
+end)
+
+--[[ COLLECT, AUTO RUN, DASH COOLDOWN ]]
+game:GetService("RunService").Heartbeat:connect(function()
+    if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and library.flags["auto_pickup"] then
+        -- it's my first time using this FindPartsInRegion3 so hopefully its fine.
+        local RootPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        local Region = Region3.new(RootPosition - Vector3.new(library.flags["pickup_distance"], library.flags["pickup_distance"], library.flags["pickup_distance"]), RootPosition + Vector3.new(library.flags["pickup_distance"], library.flags["pickup_distance"], library.flags["pickup_distance"]))
+        for _, Part in pairs(workspace:FindPartsInRegion3WithIgnoreList(Region, {game.Players.LocalPlayer.Character}, math.huge)) do -- max parts?
+            if Part.Name == "Handle" and not (Part:FindFirstChild("taken")) and Part.Parent then
+                fireclickdetector(Part.Parent.ClickDetector, library.flags["pickup_distance"])
+            end
+        end
+    end
+    -- don't get why the devs of this game cannot just make their own autorun?
+    if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
+        if library.flags["auto_run"] then
+            game.Players.LocalPlayer.Character.MovementValues.isRunning.Value = true
+        end
+    end
+    -- this value gets reset when u dash. (I know another way to do this but don't wanna leak)
+    if library.flags["dash_cooldown"] then
+        setupvalue(dcooldown, 3, 0)
+    end
+end)
+
+-- [[ LIBRARY ]]
+local window = library:CreateWindow("Verdant Moon") do
+    local folder = window:AddFolder("Npcs") do
+        for i, v in next, game:GetService("Workspace").NPCs:GetChildren() do
+            local folder = folder:AddFolder(v.Name) do
+                for i, v in next, game:GetService("Workspace").NPCs[folder.title]:GetChildren() do
+                    folder:AddButton({text = v.Name, flag = "ncp_btn", callback = function() -- funny teleport
+                        game.Players.LocalPlayer.Character.Humanoid.HipHeight = 5
+                        repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("isRagdoll")
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("HumanoidRootPart").CFrame + v:FindFirstChild("HumanoidRootPart").CFrame.LookVector * 3
+                        game.Players.LocalPlayer.Character.Humanoid.HipHeight = 0
+                        game:GetService("Debris"):AddItem(game.Players.LocalPlayer.Character.isRagdoll, 1) -- ignore
+                        ragdoll_module.Ragdoll(game.Players.LocalPlayer.Character, false)
+                    end})
+                end
+            end
+        end
+    end
+    local folder = window:AddFolder("Events") do
+        for i, v in next, game:GetService("Workspace").SpawnTriggers:GetChildren() do
+            local folder = folder:AddFolder(v.Name) do
+                for i, v in next, game:GetService("Workspace").SpawnTriggers[folder.title]:GetChildren() do
+                    folder:AddButton({text = v.Name, flag = "ncp_btn", callback = function()
+                        if v:IsA("BasePart") then
+                            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 5
+                            repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("isRagdoll")
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 0
+                            game:GetService("Debris"):AddItem(game.Players.LocalPlayer.Character.isRagdoll, 1) -- ignore
+                            ragdoll_module.Ragdoll(game.Players.LocalPlayer.Character, false)
+                        end
+                    end})
+                end
+            end
+        end
+    end
+    local folder = window:AddFolder("Client") do
+        local auto_pickup = folder:AddToggle({text = "Auto Pickup", value = false, flag = "auto_pickup"}) do
+            folder:AddSlider({text = "Pickup Distance", min = 1, max = 10, value = 10, flag = "pickup_distance"})
+        end
+        folder:AddToggle({text = "No Dash Cooldown", value = false, flag = "dash_cooldown"})
+        folder:AddToggle({text = "Auto Run", value = false, flag = "auto_run", callback = function()
+            game.Players.LocalPlayer.Character.MovementValues.isRunning.Value = false
+        end})
+        folder:AddButton({text = "Drop All Trinkets", callback = function()
+            for i, v in next, game.Players.LocalPlayer.Backpack:GetChildren() do
+                game:GetService("ReplicatedStorage").Events.FUNNYREMOGE:FireServer(v, "eo95ryuihbnoiueyriote4rt4 oni2wv 4o2 0045 t0bn tpt4 ewprt4ih  rhi2rq 3hiero werh0we4 0roe4 rhw4e 90h8w43et 09w4et 90 3w4t0h9ih h09o w35qeh09-q2w3rt e, i spammed my keyboard for like 10 seconds for this be happy")
+            end
+        end})
+    end
+end
+
+library:Init()
