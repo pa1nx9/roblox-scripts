@@ -1,0 +1,3 @@
+for i = 1,15 do
+game:GetService("ReplicatedStorage").Networking.NetworkingEvent:FireServer("UseItem",false,true,workspace.Tooth)
+end
