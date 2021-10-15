@@ -1,0 +1,7 @@
+for i,v in pairs(game:GetService("Workspace").WorldObjects:GetDescendants()) do
+    if v.ClassName == "MeshPart" then
+local b = v
+game:GetService("ReplicatedStorage").Networking.NetworkingEvent:FireServer("PickupItem", b, true, CFrame.new(Vector3.new(0,0,0), Vector3.new(0,0,0)), 3, Vector3.new(0,0,0))
+wait(0.1)
+end
+end
