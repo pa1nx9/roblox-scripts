@@ -1,0 +1,5 @@
+for i,v in next, getgc(true) do
+if type(v) == "table" and rawget(v, "Time") then
+v.Time = 0.01
+end
+end
