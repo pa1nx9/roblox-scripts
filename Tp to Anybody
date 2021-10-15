@@ -1,0 +1,11 @@
+local b = game:GetService("Workspace").Characters["Target"].HumanoidRootPart.CFrame
+
+game:GetService("Workspace").Characters.Usernamehere.HumanoidRootPart.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.Body.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.LegL.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.LegR.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.ArmR.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.ArmL.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.HandL.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.HandR.CFrame = b
+game:GetService("Workspace").Characters.Usernamehere.Head.CFrame = b
